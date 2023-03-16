@@ -89,7 +89,12 @@ function Move-DataFile {
 # MAIN
 Import-Module ActiveDirectory
 $target_ou = "OU=Disabled,OU=Accounts,DC=domain,DC=com"
-$current_file = "\\network\storage\WithdrawnAccounts\withdrawn.txt"
+
+if ($args[0]) {
+    $current_file = $args[0]
+} else {
+    $current_file = "\\network\storage\WithdrawnAccounts\withdrawn.txt"
+}
 
 if (Test-Path -Path $current_file -PathType Leaf) {
     $account_list = Get-TXT $current_file
